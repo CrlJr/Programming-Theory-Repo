@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 604441674}
   - component: {fileID: 604441673}
   m_Layer: 0
-  m_Name: Menu Manager
+  m_Name: Main Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -718,6 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8629777c66768a479e7368bbe458dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &604441674
 Transform:
   m_ObjectHideFlags: 0

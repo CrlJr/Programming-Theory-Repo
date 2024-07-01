@@ -1,37 +1,109 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharactersMenu : MonoBehaviour
 {
-    private GameObject[] charactersList = new GameObject[3];
+    public Camera gameCamera;
+    public GameObject marker;
 
-    private void Start()
+    private CharactersMenu character;
+    private Color red;
+    private Color green;
+    private Color blue;
+    private string colorName;
+
+    private void Awake()
     {
-        CharacterProperties();
+        HandleColor();
     }
 
-    private void CharacterProperties()
+    private void Update()
     {
-        int i = 0;
-        foreach (Transform child in transform)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (child.tag == "Character")
-            {
-                charactersList[i] = child.gameObject;
+            HandleSelection();
+        }
+        markerHandling();
+    }
+
+    private void HandleColor()
+    {
+        red = new Color32(205, 35, 35, 255);
+        green = new Color32(65, 210, 35, 255);
+        blue = new Color32(35, 125, 255, 255);
+
+        int i = 1;
+        foreach(GameObject gameobj in GameObject.FindObjectsOfType<GameObject>())
+        {
+            if (gameobj.name.Contains("Character "))
+            { 
+                switch (i){
+                    case 1:
+                        gameobj.GetComponent<Renderer>().material.color = red;
+                        MainManager.Instance.colorName = "red";
+                        break;
+                    case 2:
+                        gameobj.GetComponent<Renderer>().material.color = green;
+                        MainManager.Instance.colorName = "green";
+                        break;
+                    case 3:
+                        gameobj.GetComponent<Renderer>().material.color = blue;
+                        MainManager.Instance.colorName = "blue";
+                        break;
+
+                }
                 i++;
             }
         }
     }
 
-    public void Back()
+    public virtual void ColorSelection(GameObject character)
     {
-        SceneManager.LoadScene(0);
+        if(colorName == "red")
+        {
+            character.GetComponent<Renderer>().material.color = red;
+        }
+        else if(colorName == "green")
+        {
+            character.GetComponent<Renderer>().material.color = green;
+        }
+        else if (colorName == "blue")
+        {
+            character.GetComponent<Renderer>().material.color = blue;
+        }
     }
 
-    public void Menu()
+    private void HandleSelection()
     {
-        SceneManager.LoadScene(0);
+        var ray = gameCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            var sphere = hit.collider.GetComponentInParent<CharactersMenu>();
+            character = sphere;
+
+            var color = hit.collider.GetComponentInParent<Renderer>().material.color;
+            MainManager.Instance.characterColor = color;
+        }
+
     }
+
+    private void markerHandling()
+    {
+        if(character == null && marker.activeInHierarchy)
+        {
+            marker.SetActive(false);
+            marker.transform.SetParent(null);
+        }
+        else if (character != null && marker.transform.parent != character.transform)
+        {
+            marker.SetActive(true);
+            marker.transform.SetParent(character.transform, false);
+            marker.transform.localPosition = new Vector3(0,1,0);
+        }
+    }
+
 }
