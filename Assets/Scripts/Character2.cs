@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//INHERITANCE
 public class Character2 : Character
 {
     private Vector3 movement;
@@ -11,7 +12,7 @@ public class Character2 : Character
         movement = Vector3.back;
     }
 
-    // Update is called once per frame
+    // POLYMORPHISM
     void Update()
     {
         ChangeColor();
