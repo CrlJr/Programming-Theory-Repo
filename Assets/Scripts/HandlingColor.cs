@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HandlingColor : SelectionMenu
+public class HandlingColor : MonoBehaviour
 {
     private Color red;
     private Color green;
     private Color blue;
-    private Color characterColorChange { get; set; }
+    private Color characterColorChange;
 
     private void Awake()
     {
         HandleColor();
     }
 
-
+    //ABSTRACTION
     private void HandleColor()
     {
         red = Color.red;
@@ -45,7 +45,7 @@ public class HandlingColor : SelectionMenu
         }
     }
 
-
+    //ABSTRACTION
     public void ColorSelection(Color color)
     {
         if (color == red)

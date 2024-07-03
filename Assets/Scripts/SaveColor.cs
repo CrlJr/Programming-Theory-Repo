@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveColor : MonoBehaviour
 {
-
+    //ENCAPSULATION
     public static SaveColor Instance { get; private set; }
 
     public Color characterColor;

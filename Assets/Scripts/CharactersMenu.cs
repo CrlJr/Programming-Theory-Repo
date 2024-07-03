@@ -10,7 +10,7 @@ public class CharactersMenu : HandlingColor
     public GameObject marker;
 
     private CharactersMenu character;
-    public Color color { get; private set; }
+    public Color color;
 
     private void Update()
     {
@@ -20,8 +20,8 @@ public class CharactersMenu : HandlingColor
         }
         markerHandling();
     }
-    
 
+    //ABSTRACTION
     private void HandleSelection()
     {
         var ray = gameCamera.ScreenPointToRay(Input.mousePosition);
@@ -38,8 +38,8 @@ public class CharactersMenu : HandlingColor
         }
 
     }
-    
 
+    //ABSTRACTION
     private void markerHandling()
     {
         if(character == null && marker.activeInHierarchy)
